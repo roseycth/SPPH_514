@@ -1,17 +1,58 @@
-<!-- HTML for input fields -->
-<label for="age">Age:</label>
-<input type="number" id="age" name="age"><br>
+<style>
+    /* Styling for the container */
+    .form-container {
+        background-color: #f4f4f9; /* Light gray background */
+        padding: 20px;
+        width: 50%;
+        margin: auto; /* Centering the container */
+        border-radius: 8px; /* Optional: adds rounded corners */
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: adds shadow for better focus */
+    }
 
-<label for="smoking">Smoking Status (0 for non-smoker, 1 for smoker):</label>
-<input type="number" id="smoking" name="smoking"><br>
+    /* Styling for the input fields and button */
+    label, input, button {
+        font-size: 1.2em; /* Larger text */
+        display: block; /* Ensures each element is on a new line */
+        margin-top: 10px;
+        width: 100%; /* Full width for better mobile responsiveness */
+    }
 
-<label for="history">Family History of Risk (0 for no, 1 for yes):</label>
-<input type="number" id="history" name="history"><br>
+    input, button {
+        padding: 10px; /* More clickable and readable */
+    }
 
-<button onclick="calculateRisk()">Calculate Risk</button>
-<p>Risk Probability: <span id="riskOutput">-</span></p>
+    button {
+        background-color: #4CAF50; /* Green background for the button */
+        color: white;
+        border: none;
+        cursor: pointer; /* Indicates it's clickable */
+    }
 
-<!-- JavaScript for calculation -->
+    button:hover {
+        background-color: #45a049; /* Slightly darker green on hover */
+    }
+
+    /* Styling for the output display */
+    p {
+        font-size: 1.2em;
+    }
+</style>
+
+<div class="form-container">
+    <!-- HTML for input fields -->
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age">
+
+    <label for="smoking">Smoking Status (0 for non-smoker, 1 for smoker):</label>
+    <input type="number" id="smoking" name="smoking">
+
+    <label for="history">Family History of Risk (0 for no, 1 for yes):</label>
+    <input type="number" id="history" name="history">
+
+    <button onclick="calculateRisk()">Calculate Risk</button>
+    <p>Risk Probability: <span id="riskOutput">-</span></p>
+</div>
+
 <script>
 function calculateRisk() {
     var age = parseInt(document.getElementById("age").value);
