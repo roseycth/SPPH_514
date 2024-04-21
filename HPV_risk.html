@@ -249,7 +249,7 @@
     var smoothedScore = 50 / (1 + Math.exp(-risk)); // Using logistic function to smooth the score
 
     // Display the smoothed risk score
-    document.getElementById("riskOutput").textContent = smoothedScore.toFixed(2)/100;
+    document.getElementById("riskOutput").textContent = smoothedScore.toFixed(2)/100000;
     var riskWidth = smoothedScore;
     document.querySelector(".riskIndicator").style.width = `${riskWidth}%`;
     document.querySelector(".riskIndicator").textContent = `${smoothedScore.toFixed(0)}`;
