@@ -1,68 +1,129 @@
-<style>
-    /* Styling for the container */
-    .form-container {
-        background-color: #f4f4f9; /* Light gray background */
-        padding: 20px;
-        width: 50%;
-        margin: auto; /* Centering the container */
-        border-radius: 8px; /* Optional: adds rounded corners */
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Optional: adds shadow for better focus */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cervical Cancer Risk Assessment</title>
+    <style>
+        .form-container {
+            background-color: #f4f4f9;
+            padding: 20px;
+            width: 60%;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        label, input, button {
+            font-size: 1.2em;
+            display: block;
+            margin-top: 10px;
+            width: 100%;
+        }
+        input, button {
+            padding: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        p {
+            font-size: 1.2em;
+        }
+        #riskBar, #avgRiskBar {
+            width: 100%;
+            background-color: #ddd;
+        }
+        .riskIndicator, .avgRiskIndicator {
+            height: 20px;
+            color: white;
+            text-align: center;
+            line-height: 20px;
+        }
+        .riskIndicator {
+            width: 0%;
+            background-color: #4CAF50;
+        }
+        .avgRiskIndicator {
+            width: 0%;
+            background-color: #FFA500;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <label for="sexuallyActive">Are you sexually active? (0 for No, 1 for Yes):</label>
+        <input type="number" id="sexuallyActive" name="sexuallyActive">
+
+        <label for="numPartners">Number of Sexual Partners:</label>
+        <input type="number" id="numPartners" name="numPartners">
+
+        <label for="ageFirstActive">Age of First Sexual Activity:</label>
+        <input type="number" id="ageFirstActive" name="ageFirstActive">
+
+        <label for="condomUse">Use of Condoms or Diaphragms (0 for No, 1 for Yes):</label>
+        <input type="number" id="condomUse" name="condomUse">
+
+        <label for="smoking">Smoking Status (0 for non-smoker, 1 for smoker):</label>
+        <input type="number" id="smoking" name="smoking">
+
+        <label for="pregnancies">Number of Full-Term Pregnancies:</label>
+        <input type="number" id="pregnancies" name="pregnancies">
+
+        <label for="otherSTIs">History of Other STIs (0 for No, 1 for Yes):</label>
+        <input type="number" id="otherSTIs" name="otherSTIs">
+
+        <label for="immuneStatus">Immune System Status (0 for Healthy, 1 for Compromised):</label>
+        <input type="number" id="immuneStatus" name="immuneStatus">
+
+        <label for="oralContraceptives">Long-Term Use of Oral Contraceptives (0 for No, 1 for Yes):</label>
+        <input type="number" id="oralContraceptives" name="oralContraceptives">
+
+        <label for="desExposure">DES Exposure (0 for No, 1 for Yes):</label>
+        <input type="number" id="desExposure" name="desExposure">
+
+        <button onclick="calculateRisk()">Calculate Risk</button>
+        <p>Risk Probability: <span id="riskOutput">-</span></p>
+        <p>Your Risk Level:</p>
+        <div id="riskBar"><div class="riskIndicator"></div></div>
+        <p>Average Risk for Your Age:</p>
+        <div id="avgRiskBar"><div class="avgRiskIndicator"></div></div>
+    </div>
+
+    <script>
+    function calculateRisk() {
+        var sexuallyActive = parseInt(document.getElementById("sexuallyActive").value || 0);
+        var numPartners = parseInt(document.getElementById("numPartners").value || 0);
+        var ageFirstActive = parseInt(document.getElementById("ageFirstActive").value || 0);
+        var condomUse = parseInt(document.getElementById("condomUse").value || 0);
+        var smoking = parseInt(document.getElementById("smoking").value || 0);
+        var pregnancies = parseInt(document.getElementById("pregnancies").value || 0);
+        var otherSTIs = parseInt(document.getElementById("otherSTIs").value || 0);
+        var immuneStatus = parseInt(document.getElementById("immuneStatus").value || 0);
+        var oralContraceptives = parseInt(document.getElementById("oralContraceptives").value || 0);
+        var desExposure = parseInt(document.getElementById("desExposure").value || 0);
+
+        // Example formula for risk calculation
+        var risk = (0.5 * sexuallyActive) + (0.1 * numPartners) + (0.1 * ageFirstActive) + (-0.2 * condomUse) +
+                   (0.3 * smoking) + (0.1 * pregnancies) + (0.2 * otherSTIs) + (0.4 * immuneStatus) +
+                   (0.2 * oralContraceptives) + (0.5 * desExposure);
+        var probability = risk / (1 + risk); // Convert risk score to probability
+
+        // Display the personal risk
+        var personalRiskWidth = Math.min(100, Math.max(0, probability * 100));
+        document.getElementById("riskOutput").textContent = probability.toFixed(2);
+        document.querySelector(".riskIndicator").style.width = `${personalRiskWidth}%`;
+        document.querySelector(".riskIndicator").textContent = `${(probability * 100).toFixed(0)}%`;
+
+        // Mimic average risk for the age group
+        var avgRisk = 0.05; // Example average risk value for the age group
+        var avgRiskWidth = Math.min(100, avgRisk * 200); // Scaled for display purposes
+        document.querySelector(".avgRiskIndicator").style.width = `${avgRiskWidth}%`;
+        document.querySelector(".avgRiskIndicator").textContent = `${(avgRisk * 100).toFixed(0)}%`;
     }
-
-    /* Styling for the input fields and button */
-    label, input, button {
-        font-size: 1.2em; /* Larger text */
-        display: block; /* Ensures each element is on a new line */
-        margin-top: 10px;
-        width: 100%; /* Full width for better mobile responsiveness */
-    }
-
-    input, button {
-        padding: 10px; /* More clickable and readable */
-    }
-
-    button {
-        background-color: #4CAF50; /* Green background for the button */
-        color: white;
-        border: none;
-        cursor: pointer; /* Indicates it's clickable */
-    }
-
-    button:hover {
-        background-color: #45a049; /* Slightly darker green on hover */
-    }
-
-    /* Styling for the output display */
-    p {
-        font-size: 1.2em;
-    }
-</style>
-
-<div class="form-container">
-    <!-- HTML for input fields -->
-    <label for="age">Age:</label>
-    <input type="number" id="age" name="age">
-
-    <label for="smoking">Smoking Status (0 for non-smoker, 1 for smoker):</label>
-    <input type="number" id="smoking" name="smoking">
-
-    <label for="history">Family History of Risk (0 for no, 1 for yes):</label>
-    <input type="number" id="history" name="history">
-
-    <button onclick="calculateRisk()">Calculate Risk</button>
-    <p>Risk Probability: <span id="riskOutput">-</span></p>
-</div>
-
-<script>
-function calculateRisk() {
-    var age = parseInt(document.getElementById("age").value);
-    var smoking = parseInt(document.getElementById("smoking").value);
-    var history = parseInt(document.getElementById("history").value);
-    
-    // Example formula for risk calculation
-    var risk = (0.02 * age) + (0.5 * smoking) + (0.3 * history);
-    var probability = risk / (1 + risk); // Convert risk score to probability
-
-    document.getElementById("riskOutput").textContent = probability.toFixed(2);
-}
-</script>
+    </script>
+</body>
+</html>
