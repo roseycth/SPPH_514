@@ -224,7 +224,6 @@
     var sexuallyActive = parseInt(document.getElementById("sexuallyActive").value || 0);
     var numPartners = parseInt(document.getElementById("numPartners").value || 0);
     var ageFirstActive = document.getElementById("ageFirstActive").value < 16 ? 0 : 1; // 1 if first sex after 16, 0 otherwise
-    var currentAge = parseInt(document.getElementById("currentAge").value || 0); // New field for current age
     var condomUse = parseInt(document.getElementById("condomUse").value || 0);
     var smoking = parseInt(document.getElementById("smoking").value || 0);
     var pregnancies = parseInt(document.getElementById("pregnancies").value || 0);
@@ -239,7 +238,6 @@
                (0.1 * sexuallyActive) +
                (0.1 * numPartners) +
                (-0.3 * ageFirstActive) + // Higher weight if first sex before 16
-               (0.1 * currentAge / 50) + // Assuming age as a continuous variable, scaled down
                (-0.4 * condomUse) +
                (0.3 * smoking) +
                (0.1 * pregnancies) +
