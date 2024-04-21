@@ -51,15 +51,102 @@
             width: 0%;
             background-color: #FFA500;
         }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 40%; /* Could be more or less, depending on screen size */
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Style for the question mark button */
+        .info-button {
+            cursor: pointer;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            line-height: 20px;
+            text-align: center;
+            background-color: #4CAF50;
+            border-radius: 50%;
+            font-size: 14px;
+            margin-left: 5px;
+            color: white;
+        }
+
+        .disabled-input {
+            background-color: #dddddd;
+            color: #999999;
+        }
     </style>
 </head>
 <body>
     <div class="form-container">
+        <!-- The cervix question with an onchange event to trigger the disable function -->
+        <label for="cerv">Do you have a cervix (0 for No, 1 for Yes):</label>
+        <input type="number" id="cerv" name="cerv" onchange="toggleFields(this.value)">
+        <span class="info-button" onclick="openModal('cervModal')">?</span>
+        <div id="cervModal" class="modal">          
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('cervModal')">&times;</span>
+                <p>Cervical cancer develops in the cervix, so if you don't have a cervix, you are not at risk of developing cervical cancer.</p>
+            </div>
+        </div>
+
+        <label for="currentAge">Current Age:</label>
+        <input type="number" id="currentAge" name="currentAge">
+        <span class="info-button" onclick="openModal('AgeModal')">?</span>
+        <div id="AgeModal" class="modal">          
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('AgeModal')">&times;</span>
+                <p>We are comparing your risk with the average risk at your age group, so it's important to know your current age.</p>
+            </div>
+        </div>
+
         <label for="sexuallyActive">Are you sexually active? (0 for No, 1 for Yes):</label>
         <input type="number" id="sexuallyActive" name="sexuallyActive">
+        <span class="info-button" onclick="openModal('SexActModal')">?</span>
+        <div id="SexActModal" class="modal">          
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('SexActModal')">&times;</span>
+                <p>InfoInfoInfo</p>
+            </div>
+        </div>
 
         <label for="numPartners">Number of Sexual Partners:</label>
         <input type="number" id="numPartners" name="numPartners">
+        <span class="tooltip"> [?]
+            <span class="tooltiptext">Having multiple sexual partners can increase your risk of HPV, a leading cause of cervical cancer.</span>
+        </span>
 
         <label for="ageFirstActive">Age of First Sexual Activity:</label>
         <input type="number" id="ageFirstActive" name="ageFirstActive">
@@ -87,43 +174,94 @@
 
         <button onclick="calculateRisk()">Calculate Risk</button>
         <p>Risk Probability: <span id="riskOutput">-</span></p>
-        <p>Your Risk Level:</p>
+        <p>Your Risk Score:</p>
         <div id="riskBar"><div class="riskIndicator"></div></div>
-        <p>Average Risk for Your Age:</p>
+        <p>Average Risk Score for Your Age:</p>
         <div id="avgRiskBar"><div class="avgRiskIndicator"></div></div>
     </div>
 
     <script>
-    function calculateRisk() {
-        var sexuallyActive = parseInt(document.getElementById("sexuallyActive").value || 0);
-        var numPartners = parseInt(document.getElementById("numPartners").value || 0);
-        var ageFirstActive = parseInt(document.getElementById("ageFirstActive").value || 0);
-        var condomUse = parseInt(document.getElementById("condomUse").value || 0);
-        var smoking = parseInt(document.getElementById("smoking").value || 0);
-        var pregnancies = parseInt(document.getElementById("pregnancies").value || 0);
-        var otherSTIs = parseInt(document.getElementById("otherSTIs").value || 0);
-        var immuneStatus = parseInt(document.getElementById("immuneStatus").value || 0);
-        var oralContraceptives = parseInt(document.getElementById("oralContraceptives").value || 0);
-        var desExposure = parseInt(document.getElementById("desExposure").value || 0);
+        function toggleFields(cervValue) {
+        // Array of all input IDs except for 'cerv'
+        const inputIds = [
+            'currentAge', 'sexuallyActive', 'numPartners', 'ageFirstActive',
+            'condomUse', 'smoking', 'pregnancies', 'otherSTIs', 'immuneStatus',
+            'oralContraceptives', 'desExposure'
+        ];
 
-        // Example formula for risk calculation
-        var risk = (0.5 * sexuallyActive) + (0.1 * numPartners) + (0.1 * ageFirstActive) + (-0.2 * condomUse) +
-                   (0.3 * smoking) + (0.1 * pregnancies) + (0.2 * otherSTIs) + (0.4 * immuneStatus) +
-                   (0.2 * oralContraceptives) + (0.5 * desExposure);
-        var probability = risk / (1 + risk); // Convert risk score to probability
+        // Disable or enable based on the value of the cervix question
+        const disable = (cervValue === "0");
 
-        // Display the personal risk
-        var personalRiskWidth = Math.min(100, Math.max(0, probability * 100));
-        document.getElementById("riskOutput").textContent = probability.toFixed(2);
-        document.querySelector(".riskIndicator").style.width = `${personalRiskWidth}%`;
-        document.querySelector(".riskIndicator").textContent = `${(probability * 100).toFixed(0)}%`;
-
-        // Mimic average risk for the age group
-        var avgRisk = 0.05; // Example average risk value for the age group
-        var avgRiskWidth = Math.min(100, avgRisk * 200); // Scaled for display purposes
-        document.querySelector(".avgRiskIndicator").style.width = `${avgRiskWidth}%`;
-        document.querySelector(".avgRiskIndicator").textContent = `${(avgRisk * 100).toFixed(0)}%`;
+        for (const id of inputIds) {
+            const input = document.getElementById(id);
+            if (disable) {
+                input.setAttribute('disabled', true);
+                input.classList.add('disabled-input');
+            } else {
+                input.removeAttribute('disabled');
+                input.classList.remove('disabled-input');
+            }
+        }
     }
+        // Open the modal with the given id
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = "block";
+    }
+
+    // Close the modal with the given id
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = "none";
+        }
+    }
+
+    function calculateRisk() {
+    var sexuallyActive = parseInt(document.getElementById("sexuallyActive").value || 0);
+    var numPartners = parseInt(document.getElementById("numPartners").value || 0);
+    var ageFirstActive = document.getElementById("ageFirstActive").value < 16 ? 0 : 1; // 1 if first sex after 16, 0 otherwise
+    var currentAge = parseInt(document.getElementById("currentAge").value || 0); // New field for current age
+    var condomUse = parseInt(document.getElementById("condomUse").value || 0);
+    var smoking = parseInt(document.getElementById("smoking").value || 0);
+    var pregnancies = parseInt(document.getElementById("pregnancies").value || 0);
+    var otherSTIs = parseInt(document.getElementById("otherSTIs").value || 0);
+    var immuneStatus = parseInt(document.getElementById("immuneStatus").value || 0); // Assuming this is a binary yes/no for significant immune issues
+    var oralContraceptives = parseInt(document.getElementById("oralContraceptives").value || 0);
+    var desExposure = parseInt(document.getElementById("desExposure").value || 0);
+
+    // Example formula for risk calculation, with currentAge added and ageFirstActive adjusted
+    var baseRisk = 0.03; // Base risk for an average individual without additional risk factors
+    var risk = baseRisk +
+               (0.1 * sexuallyActive) +
+               (0.1 * numPartners) +
+               (-0.3 * ageFirstActive) + // Higher weight if first sex before 16
+               (0.1 * currentAge / 50) + // Assuming age as a continuous variable, scaled down
+               (-0.4 * condomUse) +
+               (0.3 * smoking) +
+               (0.1 * pregnancies) +
+               (0.2 * otherSTIs) +
+               (0.4 * immuneStatus) +
+               (0.2 * oralContraceptives) +
+               (0.2 * desExposure);
+
+    var smoothedScore = 50 / (1 + Math.exp(-risk)); // Using logistic function to smooth the score
+
+    // Display the smoothed risk score
+    document.getElementById("riskOutput").textContent = smoothedScore.toFixed(2)/100;
+    var riskWidth = smoothedScore;
+    document.querySelector(".riskIndicator").style.width = `${riskWidth}%`;
+    document.querySelector(".riskIndicator").textContent = `${smoothedScore.toFixed(0)}`;
+
+    // Mimic average risk for the age group
+    var avgRiskScore = 50 / (1 + Math.exp(-baseRisk)); // Assuming average risk score calculated in the same way
+    var avgRiskWidth = avgRiskScore;
+    document.querySelector(".avgRiskIndicator").style.width = `${avgRiskWidth}%`;
+    document.querySelector(".avgRiskIndicator").textContent = `${avgRiskScore.toFixed(0)}`;
+}
     </script>
 </body>
 </html>
