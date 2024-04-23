@@ -174,20 +174,20 @@
 
         <label for="smoking">Smoking Status (0 for non-smoker, 1 for smoker):</label>
         <input type="number" id="smoking" name="smoking">
-        <span class="info-button" onclick="openModal('SmokingModal')">?</span>
-        <div id="condomModal" class="modal">          
+        <span class="info-button" onclick="openModal('smokeModal')">?</span>
+        <div id="smokeModal" class="modal">          
             <div class="modal-content">
-                <span class="close" onclick="closeModal('condomModal')">&times;</span>
+                <span class="close" onclick="closeModal('smokeModal')">&times;</span>
                 <p>Smoking is a significant risk factor for many cancers, including cervical cancer. It can weaken the immune system and affect the body's ability to fight HPV infections.</p>
             </div>
         </div>
 
         <label for="pregnancies">Number of Full-Term Pregnancies:</label>
         <input type="number" id="pregnancies" name="pregnancies">
-        <span class="info-button" onclick="openModal('condomModal')">?</span>
-        <div id="condomModal" class="modal">          
+        <span class="info-button" onclick="openModal('pregModal')">?</span>
+        <div id="pregModal" class="modal">          
             <div class="modal-content">
-                <span class="close" onclick="closeModal('condomModal')">&times;</span>
+                <span class="close" onclick="closeModal('pregModal')">&times;</span>
                 <p> Increased number of full-term pregnancies has been associated with a higher risk of cervical cancer. Hormonal changes during pregnancy might influence disease progression.</p>
             </div>
         </div>
@@ -215,7 +215,7 @@
         <label for="oralContraceptives">Long-Term Use of Oral Contraceptives (0 for No, 1 for Yes):</label>
         <input type="number" id="oralContraceptives" name="oralContraceptives">
         <span class="info-button" onclick="openModal('contraModal')">?</span>
-        <div id="ctraModal" class="modal">          
+        <div id="contraModal" class="modal">          
             <div class="modal-content">
                 <span class="close" onclick="closeModal('contraModal')">&times;</span>
                 <p>Prolonged use of oral contraceptives has been linked to a slightly increased risk of cervical cancer, possibly due to hormonal influences on the cervix or an indirect effect on sexual behavior and HPV exposure.</p>
