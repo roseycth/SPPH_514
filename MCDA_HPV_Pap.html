@@ -9,64 +9,141 @@
 
 <meta charset="UTF-8">
 <style>
-    table, th, td {
-        border: 1px solid black;
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f8f8;
+    }
+    
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    table {
         border-collapse: collapse;
-        padding: 8px;
+        width: 80%;
+        margin: 20px auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 10px;
         text-align: left;
     }
+
     th {
         background-color: #f2f2f2;
     }
-</style>
 
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .popup {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .popup-content {
+        display: none;
+        position: absolute;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 10px;
+        min-width: 200px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+    }
+
+    .popup:hover .popup-content {
+        display: block;
+    }
+
+    .result-bar {
+        width: 80%;
+        margin: 20px auto;
+        background-color: #f2f2f2;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .result-bar-fill {
+        height: 30px;
+        background-color: #4CAF50; /* Green color */
+        text-align: center;
+        line-height: 30px;
+        color: white;
+    }
+</style>
 
 <table>
     <tr>
         <th>Criteria</th>
-        <th>Description</th>
+
         <th>Pap Test</th>
         <th>HPV Self-Test</th>
     </tr>
     <tr>
-        <td>Accuracy</td>
-        <td>Detects potential precancerous or cancerous cells</td>
+
+        <td class="popup">Accuracy
+            <span class="popup-content">This criterion evaluates how accurately the test can detect precancerous or cancerous cells.</span>
+        </td>
         <td>Detects abnormal cells</td>
         <td>Detects high-risk HPV strains</td>
     </tr>
     <tr>
-        <td>Accessibility</td>
-        <td>Ease of access to the test</td>
+
+        <td class="popup">Accessibility
+            <span class="popup-content">This criterion assesses the ease with which individuals can access the test.</span>
+        </td>
         <td>Requires clinical visit</td>
         <td>Can be done at home</td>
     </tr>
+    
     <tr>
-        <td>Cost</td>
-        <td>Expense associated with the test</td>
+        <td class="popup">Cost
+            <span class="popup-content">This criterion evaluates the financial cost associated with undergoing the test.</span>
+        </td>
         <td>Generally covered by insurance</td>
         <td>Potentially higher initial cost</td>
     </tr>
+    
     <tr>
-        <td>Ease of Use</td>
-        <td>How easy it is to perform the test</td>
+        <td class="popup">Ease of Use
+            <span class="popup-content">This criterion assesses the ease of performing the test.</span>
+        </td>
         <td>Speculum exam required</td>
         <td>Less invasive, done at home</td>
     </tr>
     <tr>
-        <td>Frequency of Testing</td>
-        <td>How often the test should be performed</td>
+        <td class="popup">Frequency of Testing
+            <span class="popup-content">This criterion evaluates the recommended frequency of undergoing the test.</span>
+        </td>
         <td>Every 3 years if normal</td>
         <td>Less frequent due to sensitivity</td>
     </tr>
     <tr>
-        <td>Patient Safety</td>
-        <td>Safety concerns related to the test</td>
+
+        <td class="popup">Patient Safety
+            <span class="popup-content">This criterion assesses the safety concerns associated with undergoing the test.</span>
+        </td>
         <td>Minimal risks</td>
         <td>Safe; accuracy depends on proper collection</td>
     </tr>
+    
     <tr>
-        <td>Outcome Effectiveness</td>
-        <td>Effectiveness in reducing cancer rates</td>
+
+        <td class="popup">Outcome Effectiveness
+            <span class="popup-content">This criterion evaluates the effectiveness of the test in reducing cancer rates.</span>
+        </td>
         <td>Early detection and treatment of cells</td>
         <td>Identifies infections before cell changes</td>
     </tr>
