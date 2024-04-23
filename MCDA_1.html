@@ -226,7 +226,8 @@
 
 <h2>Results:</h2>
 <p id="papScore">Pap Test Score: </p>
-<p id="hpvScore">HPV Test Score: </p>
+<p id="hpvsScore">HPV Self Test Score: </p>
+<p id="hpvcScore">Clinician-Collected HPV Test Score: </p>
 
 <script>
 function openModal(modalId) {
@@ -251,19 +252,24 @@ function calculateScores() {
     
     const criteria = ['accuracy', 'accessibility', 'cost', 'easeOfUse', 'frequency', 'safety', 'effectiveness'];
     const papScores = [8, 6, 7, 5, 7, 9, 8]; // Fixed scores for Pap test
-    const hpvScores = [7, 9, 6, 9, 8, 7, 9]; // Fixed scores for HPV self-test
+    const hpvsScores = [7, 9, 2, 9, 8, 7, 7]; // Fixed scores for HPV self-test
+    const hpvcScores = [7, 9, 6, 8, 8, 7, 9]; // Fixed scores for HPV self-test
     
     let papTotal = 0;
-    let hpvTotal = 0;
+    let hpvsTotal = 0;
+    let hpvcTotal = 0;
+
 
     criteria.forEach(function(criterion, index) {
         const weight = document.getElementById(criterion).value;
         papTotal += weight * papScores[index];
-        hpvTotal += weight * hpvScores[index];
+        hpvsTotal += weight * hpvsScores[index];
+        hpvcTotal += weight * hpvcScores[index];
     });
 
     document.getElementById('papScore').innerHTML = "Pap Test Score: " + papTotal;
-    document.getElementById('hpvScore').innerHTML = "HPV Test Score: " + hpvTotal;
+    document.getElementById('hpvsScore').innerHTML = "HPV Self Test Score: " + hpvsTotal;
+    document.getElementById('hpvcScore').innerHTML = "Clinician-Collected HPV Test Score: " + hpvcTotal;
 }
 
 function validateForm() {
