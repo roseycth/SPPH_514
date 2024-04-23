@@ -148,12 +148,6 @@
         <td>Identifies infections before cell changes</td>
     </tr>
 </table>
-</body>
-</html>
-
-
-
-
 <form id="mcdaForm">
     <h2>Weight each criterion according to its importance to you:</h2>
     <label for="accuracy">Accuracy (0-10):</label>
@@ -188,7 +182,7 @@
 function calculateScores() {
     const criteria = ['accuracy', 'accessibility', 'cost', 'easeOfUse', 'frequency', 'safety', 'effectiveness'];
     const papScores = [8, 6, 7, 5, 7, 9, 8]; // Fixed scores for Pap test
-    const hpvScores = [7, 9, 6, 9, 8, 9, 9]; // Fixed scores for HPV self-test
+    const hpvScores = [7, 9, 6, 9, 8, 7, 9]; // Fixed scores for HPV self-test
     
     let papTotal = 0;
     let hpvTotal = 0;
@@ -203,6 +197,5 @@ function calculateScores() {
     document.getElementById('hpvScore').innerHTML = "HPV Test Score: " + hpvTotal;
 }
 </script>
-
 </body>
 </html>

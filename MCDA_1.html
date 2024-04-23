@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Cervical Cancer Screening MCDA Tool</title>
-
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -42,44 +41,43 @@
         background-color: #f5f5f5;
     }
 
-    .popup {
-        position: relative;
-        display: inline-block;
+    /* Style the modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0,0,0);
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
         cursor: pointer;
     }
 
-    .popup-content {
-        display: none;
-        position: absolute;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        padding: 10px;
-        min-width: 200px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        z-index: 1;
-    }
-
-    .popup:hover .popup-content {
-        display: block;
-    }
-
-    .result-bar {
-        width: 80%;
-        margin: 20px auto;
-        background-color: #f2f2f2;
-        border-radius: 5px;
-        overflow: hidden;
-    }
-
-    .result-bar-fill {
-        height: 30px;
-        background-color: #4CAF50; /* Green color */
-        text-align: center;
-        line-height: 30px;
-        color: white;
+    .modal-button {
+        cursor: pointer;
+        color: #069;
+        text-decoration: underline;
     }
 </style>
-
 </head>
 <body>
 <h1>Cervical Cancer Screening MCDA Tool</h1>
@@ -87,130 +85,58 @@
 <table>
     <tr>
         <th>Criteria</th>
-
         <th>Pap Test</th>
         <th>HPV Self-Test</th>
+        <th> Clinician-Collected HPV Test
     </tr>
+    <!-- Accuracy Row -->
     <tr>
+        <td><span class="modal-button" onclick="openModal('modalAccuracy')">Accuracy</span></td>
+        <td>Detects abnormal cells. Less sensitive and specific in detecting high-grade cervical lesions and cancers.</td>
+        <td>Detects high-risk HPV strains. High specificity (88.4%) and moderate-to-high sensitivity (84%).</td>
+        <td>Gold standard with highest sensitivity and specificity for detecting high-grade lesions and cancers.</td>
+    </tr>
 
-        <td class="popup">Accuracy
-            <span class="popup-content">This criterion evaluates how accurately the test can detect precancerous or cancerous cells.</span>
-        </td>
-        <td>Detects abnormal cells</td>
-        <td>Detects high-risk HPV strains</td>
-    </tr>
+    <!-- Accessibility Row -->
     <tr>
+        <td><span class="modal-button" onclick="openModal('modalAccess')">Accessibility</span></td>
+        <td>Requires a visit to healthcare facilities.</td>
+        <td>Can be performed at home, significantly improving access for remote or underserved populations.</td>
+        <td>Requires a visit to healthcare facilities.</td>
+    </tr>
 
-        <td class="popup">Accessibility
-            <span class="popup-content">This criterion assesses the ease with which individuals can access the test.</span>
-        </td>
-        <td>Requires clinical visit</td>
-        <td>Can be done at home</td>
-    </tr>
-    
-    <tr>
-        <td class="popup">Cost
-            <span class="popup-content">This criterion evaluates the financial cost associated with undergoing the test.</span>
-        </td>
-        <td>Generally covered by insurance</td>
-        <td>Potentially higher initial cost</td>
-    </tr>
-    
-    <tr>
-        <td class="popup">Ease of Use
-            <span class="popup-content">This criterion assesses the ease of performing the test.</span>
-        </td>
-        <td>Speculum exam required</td>
-        <td>Less invasive, done at home</td>
-    </tr>
-    <tr>
-        <td class="popup">Frequency of Testing
-            <span class="popup-content">This criterion evaluates the recommended frequency of undergoing the test.</span>
-        </td>
-        <td>Every 3 years if normal</td>
-        <td>Less frequent due to sensitivity</td>
-    </tr>
-    <tr>
-
-        <td class="popup">Patient Safety
-            <span class="popup-content">This criterion assesses the safety concerns associated with undergoing the test.</span>
-        </td>
-        <td>Minimal risks</td>
-        <td>Safe; accuracy depends on proper collection</td>
-    </tr>
-    
-    <tr>
-
-        <td class="popup">Outcome Effectiveness
-            <span class="popup-content">This criterion evaluates the effectiveness of the test in reducing cancer rates.</span>
-        </td>
-        <td>Early detection and treatment of cells</td>
-        <td>Identifies infections before cell changes</td>
-    </tr>
 </table>
 
-<form id="mcdaForm">
-    <h2>Weight each criterion according to its importance to you:</h2>
-    <label for="accuracy">Accuracy:</label>
-    <input type="range" id="accuracy" name="accuracy" min="0" max="10" value="5">
-    <span id="accuracyValue">5</span><br><br>
-        
-    <label for="accessibility">Accessibility:</label>
-    <input type="range" id="accessibility" name="accessibility" min="0" max="10" value="5">
-    <span id="accessibilityValue">5</span><br><br>
-        
-    <label for="cost">Cost:</label>
-    <input type="range" id="cost" name="cost" min="0" max="10" value="5">
-    <span id="costValue">5</span><br><br>
-        
-    <label for="easeOfUse">Ease of Use:</label>
-    <input type="range" id="easeOfUse" name="easeOfUse" min="0" max="10" value="5">
-    <span id="easeOfUseValue">5</span><br><br>
-        
-    <label for="frequency">Frequency of Testing:</label>
-    <input type="range" id="frequency" name="frequency" min="0" max="10" value="5">
-    <span id="frequencyValue">5</span><br><br>
-        
-    <label for="safety">Patient Safety:</label>
-    <input type="range" id="safety" name="safety" min="0" max="10" value="5">
-    <span id="safetyValue">5</span><br><br>
-        
-    <label for="effectiveness">Outcome Effectiveness:</label>
-    <input type="range" id="effectiveness" name="effectiveness" min="0" max="10" value="5">
-    <span id="effectivenessValue">5</span><br><br>
+<!-- The Modal -->
+<div id="modalAccuracy" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalAccuracy')">&times;</span>
+        <p>This criterion evaluates how accurately the test can detect precancerous or cancerous cells.</p>
+    </div>
+</div>
 
-    <button type="button" onclick="calculateScores()">Calculate Scores</button>
-</form>
-
-<h2>Results:</h2>
-<div class="result-bar">
-    <div id="papScore" class="result-bar-fill" style="width: 50%;">Pap Test Score</div>
-    <div id="hpvScore" class="result-bar-fill" style="width: 50%;">HPV Test Score</div>
+<!-- Other modals would go here -->
+<div id="modalAccess" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalAccess')">&times;</span>
+        <p>This criterion evaluates ease of access to the test for the population, considering factors like location and required resources.</p>
+    </div>
 </div>
 
 <script>
-    function calculateScores() {
-        const criteria = ['accuracy', 'accessibility', 'cost', 'easeOfUse', 'frequency', 'safety', 'effectiveness'];
-        const papScores = [8, 6, 7, 5, 7, 9, 8]; // Fixed scores for Pap test
-        const hpvScores = [7, 9, 6, 9, 8, 9, 9]; // Fixed scores for HPV self-test
-        
-        let papTotal = 0;
-        let hpvTotal = 0;
+function openModal(modalId) {
+    document.getElementById(modalId).style.display = "block";
+}
 
-        criteria.forEach(function(criterion, index) {
-            const weight = document.getElementById(criterion).value;
-            papTotal += weight * papScores[index];
-            hpvTotal += weight * hpvScores[index];
-            // Update the corresponding value beside the slider
-            document.getElementById(criterion + 'Value').textContent = weight;
-        });
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = "none";
+}
 
-        const papWidth = (papTotal / (papTotal+hpvTotal)) * 100;
-        const hpvWidth = (hpvTotal / (papTotal+hpvTotal)) * 100;
-
-        document.getElementById('papScore').style.width = papWidth + '%';
-        document.getElementById('hpvScore').style.width = hpvWidth + '%';
+window.onclick = function(event) {
+    if (event.target.className === "modal") {
+        event.target.style.display = "none";
     }
+}
 </script>
 
 </body>
