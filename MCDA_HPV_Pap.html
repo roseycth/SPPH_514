@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cervical Cancer Screening MCDA Tool</title>
+</head>
+<body>
+<h1>Cervical Cancer Screening MCDA Tool</h1>
+
+<meta charset="UTF-8">
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+
+<table>
+    <tr>
+        <th>Criteria</th>
+        <th>Description</th>
+        <th>Pap Test</th>
+        <th>HPV Self-Test</th>
+    </tr>
+    <tr>
+        <td>Accuracy</td>
+        <td>Detects potential precancerous or cancerous cells</td>
+        <td>Detects abnormal cells</td>
+        <td>Detects high-risk HPV strains</td>
+    </tr>
+    <tr>
+        <td>Accessibility</td>
+        <td>Ease of access to the test</td>
+        <td>Requires clinical visit</td>
+        <td>Can be done at home</td>
+    </tr>
+    <tr>
+        <td>Cost</td>
+        <td>Expense associated with the test</td>
+        <td>Generally covered by insurance</td>
+        <td>Potentially higher initial cost</td>
+    </tr>
+    <tr>
+        <td>Ease of Use</td>
+        <td>How easy it is to perform the test</td>
+        <td>Speculum exam required</td>
+        <td>Less invasive, done at home</td>
+    </tr>
+    <tr>
+        <td>Frequency of Testing</td>
+        <td>How often the test should be performed</td>
+        <td>Every 3 years if normal</td>
+        <td>Less frequent due to sensitivity</td>
+    </tr>
+    <tr>
+        <td>Patient Safety</td>
+        <td>Safety concerns related to the test</td>
+        <td>Minimal risks</td>
+        <td>Safe; accuracy depends on proper collection</td>
+    </tr>
+    <tr>
+        <td>Outcome Effectiveness</td>
+        <td>Effectiveness in reducing cancer rates</td>
+        <td>Early detection and treatment of cells</td>
+        <td>Identifies infections before cell changes</td>
+    </tr>
+</table>
+</body>
+</html>
+
+
+
+
+<form id="mcdaForm">
+    <h2>Weight each criterion according to its importance to you:</h2>
+    <label for="accuracy">Accuracy (0-10):</label>
+    <input type="number" id="accuracy" name="accuracy" min="0" max="10" required><br><br>
+    
+    <label for="accessibility">Accessibility (0-10):</label>
+    <input type="number" id="accessibility" name="accessibility" min="0" max="10" required><br><br>
+    
+    <label for="cost">Cost (0-10):</label>
+    <input type="number" id="cost" name="cost" min="0" max="10" required><br><br>
+    
+    <label for="easeOfUse">Ease of Use (0-10):</label>
+    <input type="number" id="easeOfUse" name="easeOfUse" min="0" max="10" required><br><br>
+    
+    <label for="frequency">Frequency of Testing (0-10):</label>
+    <input type="number" id="frequency" name="frequency" min="0" max="10" required><br><br>
+    
+    <label for="safety">Patient Safety (0-10):</label>
+    <input type="number" id="safety" name="safety" min="0" max="10" required><br><br>
+    
+    <label for="effectiveness">Outcome Effectiveness (0-10):</label>
+    <input type="number" id="effectiveness" name="effectiveness" min="0" max="10" required><br><br>
+    
+    <button type="button" onclick="calculateScores()">Calculate Scores</button>
+</form>
+
+<h2>Results:</h2>
+<p id="papScore">Pap Test Score: </p>
+<p id="hpvScore">HPV Test Score: </p>
+
+<script>
+function calculateScores() {
+    const criteria = ['accuracy', 'accessibility', 'cost', 'easeOfUse', 'frequency', 'safety', 'effectiveness'];
+    const papScores = [8, 6, 7, 5, 7, 9, 8]; // Fixed scores for Pap test
+    const hpvScores = [7, 9, 6, 9, 8, 9, 9]; // Fixed scores for HPV self-test
+    
+    let papTotal = 0;
+    let hpvTotal = 0;
+
+    criteria.forEach(function(criterion, index) {
+        const weight = document.getElementById(criterion).value;
+        papTotal += weight * papScores[index];
+        hpvTotal += weight * hpvScores[index];
+    });
+
+    document.getElementById('papScore').innerHTML = "Pap Test Score: " + papTotal;
+    document.getElementById('hpvScore').innerHTML = "HPV Test Score: " + hpvTotal;
+}
+</script>
+
+</body>
+</html>
