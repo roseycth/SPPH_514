@@ -148,7 +148,7 @@
         <td>Identifies infections before cell changes</td>
     </tr>
 </table>
-<form id="mcdaForm">
+<form id="mcdaForm" onsubmit="return calculateScores()">
     <h2>Weight each criterion according to its importance to you:</h2>
     <label for="accuracy">Accuracy (0-10):</label>
     <input type="number" id="accuracy" name="accuracy" min="0" max="10" required><br><br>
@@ -171,7 +171,7 @@
     <label for="effectiveness">Outcome Effectiveness (0-10):</label>
     <input type="number" id="effectiveness" name="effectiveness" min="0" max="10" required><br><br>
     
-    <button type="button" onclick="calculateScores()">Calculate Scores</button>
+    <button type="submit">Calculate Scores</button>
 </form>
 
 <h2>Results:</h2>
@@ -180,6 +180,11 @@
 
 <script>
 function calculateScores() {
+    // Perform validation first
+    if (!validateForm()) {
+        return; // Stop the function if validation fails
+    }
+    
     const criteria = ['accuracy', 'accessibility', 'cost', 'easeOfUse', 'frequency', 'safety', 'effectiveness'];
     const papScores = [8, 6, 7, 5, 7, 9, 8]; // Fixed scores for Pap test
     const hpvScores = [7, 9, 6, 9, 8, 7, 9]; // Fixed scores for HPV self-test
@@ -195,6 +200,20 @@ function calculateScores() {
 
     document.getElementById('papScore').innerHTML = "Pap Test Score: " + papTotal;
     document.getElementById('hpvScore').innerHTML = "HPV Test Score: " + hpvTotal;
+}
+
+function validateForm() {
+    var isValid = true;
+    var inputs = document.querySelectorAll('input[type=number]');
+    for (var i = 0; i < inputs.length; i++) {
+        var value = parseInt(inputs[i].value, 10);
+        if (value < 0 || value > 10) {
+            alert('Please enter a value between 0 and 10 for ' + inputs[i].name);
+            isValid = false;
+            // break; // Uncomment this line if you want to stop checking after the first invalid input
+        }
+    }
+    return isValid;
 }
 </script>
 </body>
