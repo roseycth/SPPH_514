@@ -97,12 +97,52 @@
         <td>Gold standard with highest sensitivity and specificity for detecting high-grade lesions and cancers.</td>
     </tr>
 
-    <!-- Accessibility Row -->
+    <!-- Access Row -->
     <tr>
-        <td><span class="modal-button" onclick="openModal('modalAccess')">Accessibility</span></td>
+        <td><span class="modal-button" onclick="openModal('modalAccess')">Access</span></td>
         <td>Requires a visit to healthcare facilities.</td>
-        <td>Can be performed at home, significantly improving access for remote or underserved populations.</td>
+        <td>Can be performed at home, significantly improving access for remote or underserved populations</td>
         <td>Requires a visit to healthcare facilities.</td>
+    </tr>
+
+    <!-- Cost Row -->
+    <tr>
+        <td><span class="modal-button" onclick="openModal('modalCost')">Cost</span></td>
+        <td>Generally lower cost due to widespread availability and established infrastructure.</td>
+        <td>Could be slightly higher cost due to the convenience and privacy of at-home testing.(but some policy has covered it, e.g., in BC)</td>
+        <td>Costs comparable to self-tests, influenced by clinical settings and additional procedures.</td>
+    </tr>
+
+    <!-- Ease of Use Row -->
+    <tr>
+        <td><span class="modal-button" onclick="openModal('modalEase')">Ease of Use</span></td>
+        <td>Requires a healthcare provider to perform a speculum exam and collect cervical cells.</td>
+        <td>Simple, involving a self-administered vaginal swab.</td>
+        <td>Requires a healthcare provider to perform a speculum exam and collect cervical cells.</td>
+    </tr>
+
+    <!-- Frequency Row -->
+    <tr>
+        <td><span class="modal-button" onclick="openModal('modalFreq')">Frequency of Testing</span></td>
+        <td>Recommended every 3 years in conjunction with HPV testing in women aged 30 and older.</td>
+        <td>Recommended every 5 years, can vary based on health guidelines.</td>
+        <td>Recommended every 5 years as part of routine screening in women aged 25 and older.</td>
+    </tr>
+
+    <!-- Safety Row -->
+    <tr>
+        <td><span class="modal-button" onclick="openModal('modalSafe')">Patient Saftety</span></td>
+        <td>Minimally invasive with low risk; performed during a routine gynecological exam.</td>
+        <td>Minimally invasive and can be performed privately, reducing procedural discomfort.</td>
+        <td>Minimally invasive with low risk; involves a gynecological exam.</td>
+    </tr>
+
+    <!-- Outcome Row -->
+    <tr>
+        <td><span class="modal-button" onclick="openModal('modalOE')">Outcome Effectiveness</span></td>
+        <td>Effective at detecting precancerous changes but can miss some high-grade abnormalities.</td>
+        <td>Less effective than clinician-collected tests but more accessible, increasing overall screening uptake.</td>
+        <td>Most effective at early detection of high-risk HPV infections, leading to better prevention of cervical cancer.</td>
     </tr>
 
 </table>
@@ -120,6 +160,41 @@
     <div class="modal-content">
         <span class="close" onclick="closeModal('modalAccess')">&times;</span>
         <p>This criterion evaluates ease of access to the test for the population, considering factors like location and required resources.</p>
+    </div>
+</div>
+
+<div id="modalCost" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalCost')">&times;</span>
+        <p>This criterion evaluates the financial expense associated with the test.</p>
+    </div>
+</div>
+
+<div id="modalEase" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalEase')">&times;</span>
+        <p>This criterion evaluates how simple the test is to perform, both from the patient's and healthcare provider's perspective.</p>
+    </div>
+</div>
+
+<div id="modalFreq" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalFreq')">&times;</span>
+        <p>Recommended intervals at which the test should be repeated for effective monitoring.</p>
+    </div>
+</div>
+
+<div id="modalSafe" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalSafe')">&times;</span>
+        <p>This criterion evaluates the level of risk involved in undergoing the test in terms of physical harm or discomfort.</p>
+    </div>
+</div>
+
+<div id="modalOE" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('modalOE')">&times;</span>
+        <p>This criterion evaluates the effectiveness of the test in achieving the desired health outcomes, such as early detection and prevention of disease progression.</p>
     </div>
 </div>
 
