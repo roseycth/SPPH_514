@@ -138,39 +138,99 @@
         <div id="SexActModal" class="modal">          
             <div class="modal-content">
                 <span class="close" onclick="closeModal('SexActModal')">&times;</span>
-                <p>InfoInfoInfo</p>
+                <p>Sexual activity can increase the risk of HPV infection, the primary cause of cervical cancer. It's important to start screening if you are sexually active to detect any abnormalities early.</p>
             </div>
         </div>
 
         <label for="numPartners">Number of Sexual Partners:</label>
         <input type="number" id="numPartners" name="numPartners">
-        <span class="tooltip"> [?]
-            <span class="tooltiptext">Having multiple sexual partners can increase your risk of HPV, a leading cause of cervical cancer.</span>
-        </span>
+        <span class="info-button" onclick="openModal('NumParModal')">?</span>
+        <div id="NumParModal" class="modal">          
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('NumParModal')">&times;</span>
+                <p>Having multiple sexual partners increases your exposure to HPV, heightening the risk of cervical cancer. Regular screening is recommended if you have multiple partners.</p>
+            </div>
+        </div>
 
         <label for="ageFirstActive">Age of First Sexual Activity:</label>
         <input type="number" id="ageFirstActive" name="ageFirstActive">
+        <span class="info-button" onclick="openModal('AgeFirstModal')">?</span>
+        <div id="AgeFirstModal" class="modal">          
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('AgeFirstModal')">&times;</span>
+                <p>Early onset of sexual activity (<16 years old) can increase the duration and likelihood of HPV exposure, contributing to a higher risk of developing cervical cancer over time.</p>
+            </div>
+        </div>
 
         <label for="condomUse">Use of Condoms or Diaphragms (0 for No, 1 for Yes):</label>
         <input type="number" id="condomUse" name="condomUse">
+        <span class="info-button" onclick="openModal('condomModal')">?</span>
+        <div id="condomModal" class="modal">          
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('condomModal')">&times;</span>
+                <p>Barrier methods like condoms and diaphragms can reduce the risk of HPV infection but are not completely effective in preventing it. They are a crucial part of a broader strategy to prevent sexually transmitted infections, including those that can lead to cervical cancer.</p>
+            </div>
+        </div>
 
         <label for="smoking">Smoking Status (0 for non-smoker, 1 for smoker):</label>
         <input type="number" id="smoking" name="smoking">
+        <span class="info-button" onclick="openModal('SmokingModal')">?</span>
+        <div id="condomModal" class="modal">          
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('condomModal')">&times;</span>
+                <p>Smoking is a significant risk factor for many cancers, including cervical cancer. It can weaken the immune system and affect the body's ability to fight HPV infections.</p>
+            </div>
+        </div>
 
         <label for="pregnancies">Number of Full-Term Pregnancies:</label>
         <input type="number" id="pregnancies" name="pregnancies">
+        <span class="info-button" onclick="openModal('condomModal')">?</span>
+        <div id="condomModal" class="modal">          
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('condomModal')">&times;</span>
+                <p> Increased number of full-term pregnancies has been associated with a higher risk of cervical cancer. Hormonal changes during pregnancy might influence disease progression.</p>
+            </div>
+        </div>
 
         <label for="otherSTIs">History of Other STIs (0 for No, 1 for Yes):</label>
         <input type="number" id="otherSTIs" name="otherSTIs">
+        <span class="info-button" onclick="openModal('STIModal')">?</span>
+        <div id="STIModal" class="modal">          
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('STIModal')">&times;</span>
+                <p>A history of sexually transmitted infections (STIs) can be linked to a higher risk of HPV infection, which in turn increases the risk of cervical cancer.</p>
+            </div>
+        </div>
 
         <label for="immuneStatus">Immune System Status (0 for Healthy, 1 for Compromised):</label>
         <input type="number" id="immuneStatus" name="immuneStatus">
+        <span class="info-button" onclick="openModal('immuneModal')">?</span>
+        <div id="immuneModal" class="modal">          
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('immuneModal')">&times;</span>
+                <p>A healthy immune system effectively fights off HPV infections, which can prevent the progression to cervical cancer. However, a compromised immune system may not combat HPV effectively, increasing the risk of cervical abnormalities and cancer. This could be due to conditions that weaken the immune response, such as HIV/AIDS, certain autoimmune disorders, or due to treatments that suppress immune function like chemotherapy or long-term steroid use.</p>
+            </div>
+        </div>
 
         <label for="oralContraceptives">Long-Term Use of Oral Contraceptives (0 for No, 1 for Yes):</label>
         <input type="number" id="oralContraceptives" name="oralContraceptives">
+        <span class="info-button" onclick="openModal('contraModal')">?</span>
+        <div id="ctraModal" class="modal">          
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('contraModal')">&times;</span>
+                <p>Prolonged use of oral contraceptives has been linked to a slightly increased risk of cervical cancer, possibly due to hormonal influences on the cervix or an indirect effect on sexual behavior and HPV exposure.</p>
+            </div>
+        </div>
 
         <label for="desExposure">DES Exposure (0 for No, 1 for Yes):</label>
         <input type="number" id="desExposure" name="desExposure">
+        <span class="info-button" onclick="openModal('desModal')">?</span>
+        <div id="desModal" class="modal">          
+            <div class="modal-content">
+                <span class="close" onclick="closeModal('desModal')">&times;</span>
+                <p>Exposure to diethylstilbestrol (DES), a synthetic estrogen previously given to pregnant women, is associated with an increased risk of certain types of cervical and vaginal cancer in the daughters of those women.</p>
+            </div>
+        </div>
 
         <button onclick="calculateRisk()">Calculate Risk</button>
         <p>Risk Probability: <span id="riskOutput">-</span></p>
